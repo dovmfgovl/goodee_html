@@ -1,0 +1,18 @@
+* {
+    border: 1px solid red;
+}
+
+.container {
+    background-color: black;
+}
+
+div {
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    margin-bottom: 10px;
+}
+
+.box {
+    background-color: red;
+}

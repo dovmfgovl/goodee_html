@@ -1,0 +1,39 @@
+브라우저 구성요소
+window + document + navigator
+
+상속관계
+window <- document <- c1.html
+: document는 c1.html 전체를 받는 객체이다. 
+
+브라우저는 인터프리터의 역할을 한다.
+: 태그는 보이지 않고 마킹된 태그가 적용된 화면을 확인할 수 있다.
+
+브라우저 역할
+1. DOM Tree 그린다.
+2. CSS가 존재하는 경우 1번에서 그려진 트리에 CSS가 추가된 트리를 다시 그린다. 
+3. CSS 적용된 화면이 출력 - rendering
+
+브라우저 개발자 센터 무조건 활용할 것
+element - 코드와 CSS를 직접 변경하여 그 결과를 확인 가능함
+network - 요청에 대한 서버 측의 응답 결과를 상수로 확인 가능함(200, 304, 404, 405, 500(Exception - java꺼), 403)
+application - navigator - (local, session) storage, cookie
+
+console - 로그 출력 console.log(this), alert("숫자만 넣어주세요."), prompt(0~9사이의 숫자를 입력하세요.)
+
+html은 순서 지향적이다. - 차례차례 읽혀진다. - <script> 태그를 html 끝나는 맨 뒤로 옮겼다.
+const target = document.queryselector(".target");
+
+c1.html과 c1.css 섞어쓰기
+브라우저에는 DOM Tree만 그리는 엔진과
+DOM Tree에 css가 가미된 Tree를 그리는 엔진이 따로 있다.
+
+실제 화면에 출력될 때는 태그에 css속성이 반영된 태그 정보를 사용자 컴터가 다운로드 받는다. 
+브라우저는 다운로드된 내용을 처리하는 것이다. 
+즉 서버와 동기화가 되어 있지 못하다. 
+이러한 동기화 처리는 JAVA와 섞어쓰기가 필요한 대목이다.
+html 태그는 순서대로, 차례대로 읽혀지고 처리되는데 중간에 XXX.js를 만나면 다운로드를 다 받을 때까지
+멈추게 된다. 따라서 지연이 발생하고 화면은 열리지 않게 된다.
+그런데 이벤트 처리가 먼저인가 화면 처리가 먼저인가를 생각해보면 화면을 먼저
+그리고 그 후속으로 이벤트 처리가 필요하다는 것을 알고 있다.
+그러면 defer 옵션을 추가하여 js는 일단 넘겨 아래 코드를 진행시킨 다음 다운로드가 완료되었을 때
+코드를 실행하게 되면 undefined 메세지를 피할 수 있을 것이다.
