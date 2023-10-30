@@ -1,0 +1,16 @@
+//비주얼 스튜디오의 로컬 셋팅을 모아둔다.
+{
+  "editor.tabSize": 4,
+  "editor.lineHeight": 1.6,
+  "editor.fontSize": 16,
+  "editor.tokenColorCustomizations": {
+    "comments": "#cdaae9"
+  },
+  "liveServer.settings.CustomBrowser": "chrome",
+  "[javascript]" :{
+    "editor.formatOnSave" : true,
+    "editor.defaultFormatter" : "esbenp.prettier-vscode",
+    "editor.maxTokenizationLineLength" : 2500
+  }
+
+}
