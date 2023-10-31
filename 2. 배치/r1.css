@@ -4,6 +4,7 @@
 
 .container {
     background-color: black;
+    position: relative;
 }
 
 div {
@@ -15,4 +16,13 @@ div {
 
 .box {
     background-color: red;
+    /* position: relative; 분리 시켜줌 */
+    /* 부모인 container에서 가로세로 20px 띄워진 위치에 출력됨
+        내가 담긴 상자 안에서 움직인 것이다.
+        부모에 position: relative;가 없다면 화면 제일 끝 (0,0)에서부터 
+        (20,20) 이동된 곳에 box가 위치하게 됨
+    */
+    position: absolute;
+    left: 20px; /* x축으로 이동 */
+    top: 20px; /* y축으로 이동 */
 }

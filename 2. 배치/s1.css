@@ -5,11 +5,14 @@
     border: 10px solid black;
     margin: 100px auto;
 }
-
+/*현재 레이아웃에 영향을 주지 않으면서 box1만 위로 50px 올라가기를 원한다면*/
 .wrap .box1 {
     width: 300px;
     height: 300px;
     background-color: aqua;
+    position: relative;
+    top: -50px;
+    right: 50px;
 }
 
 .wrap .box2 {
@@ -17,3 +20,14 @@
     height: 300px;
     background-color: hotpink;
 }
+
+/*
+    13라인에 margin-top: 50px로 하면 box1과 box2가 함께 이동한다.
+
+    하나만 이동하려면 relative 값을 지정
+    원래 있던 자리에서 위, 오른쪽, 왼쪽, 아래로
+    top, left, right, bottom
+
+    결론 - 현재 레이아웃에 영향을 주지(absolute) 않으면서 
+    자기(box1만) 자신만 움직이게 한다.
+*/

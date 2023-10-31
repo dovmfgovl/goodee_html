@@ -1,0 +1,40 @@
+/* 아이디: # */
+/* 클래스 선택자: . */
+/* 그냥 노드면: 그대로 */
+.wrap {
+    width: 800px;
+    border: 10px solid black;
+    margin: 100px auto;
+}
+
+.left {
+    width: 400px;
+    height: 400px;
+    background-color: lightblue;
+    float: left;
+}
+
+.right {
+    width: 400px;
+    height: 400px;
+    background-color: hotpink;
+    float: left;
+}
+
+.wrap .bottom {
+    width: 800px;
+    height: 100px;
+    background-color: greenyellow;
+    clear: both;
+}
+
+/* 가상선택자는 인라인 요소(오른쪽으로 붙음) */
+/* 부모요소에 무조건 가상선택자를 사용해서 부모요소가 자손요소를 감싸게 해 줌 */
+/* clear - .wrap에 float를 주면 항상 하위 태그가 밀림으로 하위태그에
+    clear: both를 주어 밀림을 방어함
+*/
+.wrap::after{
+    content: "";
+    display: block;
+    clear: both;
+}
