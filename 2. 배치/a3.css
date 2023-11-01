@@ -1,0 +1,20 @@
+.parent {
+    border: 5px solid blue;
+    color: blue;
+    background-color: lightskyblue;
+    padding: 1rem;
+    position: relative;
+}
+
+.child {
+    border: 2px dotted red;
+    color: black;
+    background-color: hotpink;
+    padding: 1rem;
+}
+/* 띄어쓰기를 하면 상위선택자를 나타내고 붙여쓰면 현재 선택자 */
+/*child*/.abs {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}

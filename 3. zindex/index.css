@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box; /* 여백을 포함하는 사이즈 계산함 */
+    border: 1px solid red;
+}
+
+ul {
+    list-style: none; /* 구슬 없앰 - li 구슬이지만 - 캡처링으로 부모 구슬없애면 자식 구슬도 없어짐 */
+}
+
+header {
+    width: 100%; /* 반응형 웹을 고려해 100으로*/
+    display: flex; /* ul>li 로우가 늘어남. 좌우펼침 */
+    justify-content: space-between; /* flex에서만 사용가능한 속성 */
+    align-items: center; /* 위아래 중앙 배치*/
+    top: 0px; /* 왼쪽 상단 모서리 바짝 붙임 */
+    left: 0px;
+    color: white;
+    z-index: 2; /* 숫자 클수록 위에 얹혀짐 */
+}
+
+header h1 { /* 메뉴바의 사이트명 */
+    font: bold 24px;
+    color: white;
+    z-index: 2; /*  영상 위에 보이게 */
+}
+
+header .gnb li { /* 메뉴바 li로 구성 - 글자사이 간격*/
+    /* border-box: 80+20 */
+    margin: 0px 20px; /* 메뉴 글자 외부 좌우 여백 */
+}
+
+.gnb { /* 글자 메뉴바 */
+    display: flex;
+    z-index: 2;
+}
+
+.sns {
+    display: flex; /* 소셜 아이콘 좌우로 펼치기 */
+    z-index: 2;
+}
+
+header .sns li { /* header>sns>li 태그 띄어쓰기 할 것 */
+    margin: 0px 10px;
+}
+
+header .sns li a {
+    font-size: 16px; /* 이미지 작아서 키움 */
+    color: white;
+}
+
+div { /* video 태그를 감싸고 있는 랩퍼태그 */
+    /* 비디오 컨텐츠 */
+    width: 100%; /* 영상 보여지는 크기 */
+    height: 100vh; /*스크롤바 싫고 화면에 꽉 채울 때 vh(viewport height)*/
+    position: absolute; /* 위 header 태그로 비디오 영역이 밀림*/
+    top: 0px; /* y축 좌표 모서리에 바짝 */
+    left: 0px; /* x축 좌표 왼쪽 모서리 바짝 */
+    overflow: hidden; /* 스크롤바 숨김 */
+    z-index: 1;
+}
+
+div video { /* div>video 반드시 띄어쓰기 */
+    width: 100%; /* 영상 화면 크기 */
+    height: 100%;
+    object-fit: cover; /* 영상이 비디오에 꽉 차게 해줌 */
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    color: white;
+    z-index: 2;
+    text-align: center;
+    font: 0.9em/1 "arial"; /* 1은 로우값 */
+    letter-spacing: 3px;
+}

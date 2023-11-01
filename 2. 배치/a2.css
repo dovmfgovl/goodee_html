@@ -1,0 +1,42 @@
+.wrap {
+    width: 800px;
+    border: 10px solid black;
+    margin: 100px auto;
+}
+
+.wrap .left {
+    width: 400px;
+    height: 400px;
+    background-color: aquamarine;
+    float: left;
+}
+
+.wrap .right {
+    width: 400px;
+    height: 400px;
+    background-color: orangered;
+    float: left;
+    position: relative;
+}
+
+.right p {
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.wrap .bottom {
+    width: 800px;
+    height: 100px;
+    background-color: blueviolet;
+    /* clear: both; */
+}
+
+.wrap::after {
+    content: "hello";
+    display: block;
+    clear: both; /* clear가 포인트. bottom이든 가상선택자든 clear 들어가야 */
+}
