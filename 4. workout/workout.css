@@ -1,0 +1,104 @@
+* {
+    /* padding 이나 border 사이즈가 width나 height에 포함 */
+    box-sizing: border-box;
+    /*border: 1px solid red; /* 선긋기 - 안쪽여백, 밖여백 */
+}
+
+ul {
+    padding: 0; /* 안쪽 여백 없앰 - 0을 주면 li 태그 구슬도 사라짐*/
+}
+
+body {
+    background-color: #ced3df;
+    text-align: center; /* 컨텐츠 중앙 */
+}
+
+.list {
+    width: 400px; /* 컨텐츠 폭 크기 */
+    margin: auto; /* 블록요소라 마진이 오른쪽으로만 들어감 - 그래서 auto함*/
+    background-color: #f1f0f7;
+    border-radius: 20px; /* 모서리 굴림 */
+}
+
+.header {
+    height: 48px; /* 글자 높이 */
+    padding: 8px;
+    font-size: 24px;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(212, 94, 196, 1) 51%,
+    rgba(0, 212, 255, 1) 100%
+    );
+    border-radius: 20px 20px 0 0;
+    color: white;
+}
+
+.footer {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(212, 94, 196, 1) 51%,
+    rgba(0, 212, 255, 1) 100%
+    );
+    border-radius: 0 0 20px 20px;
+}
+
+.items {
+    height: 500px; /* ul태그 전체 크기 */
+    overflow-y: auto; /* 아이템이 많으면 자동스크롤바 생성 */
+}
+
+.item {
+    display: flex; /* 글자와 쓰레기통 간격 벌리기 */
+    justify-content: space-between;
+    padding: 8px 32px; /* 양쪽 끝 내부 여백주기 */
+}
+
+.item_divider {
+    width: 90%; /* 선 긋기 */
+    height: 2px; /* 선 두께 */
+    background-color: lightgray; /* 선 색상 */
+    margin: auto; /* 이것 안 주면 오른쪽 모두 공백처리됨(마진은 바깥쪽 여백) */
+}
+
+button {
+    outline: none; /* 안쪽 선 제거 */
+    border: none; /* 버튼 테두리 선 제거 */
+    background: transparent; /* 버튼 배경색을 바탕색으로 */
+    cursor: pointer; /* 손 커서 모양 */
+}
+/* 가상선택자 사용 시 : 한 개도, :: 두 개도 가능 */
+.item_delete:hover {
+    color: red; /* 가상선택자로 마우스 오버 시 빨강 */
+    transform: scale(1.1); /* 오버 시 휴지통 10% 크게 */
+}
+
+.item_delete {
+    font-size: 16px; /* 휴지통 크기 */
+    transition: all 300ms ease-in; /* 애니메이션 속도 조절 */
+}
+
+.footer_button {
+    color: white; /* 버튼 라벨 흰색 */
+    width: 48px;
+    height: 48px;
+    background-color: black;
+    font-size: 28px;
+    border-radius: 50%; /* 동그랗게 */
+}
+
+.footer_button:hover {
+    transform: scale(1.1); /* 플러스버튼 오버 시 크게 */
+    transition: transform 300ms ease-in;
+}
+/* 운동이름 입력창 */
+#footer_input {
+    width: 100%; /* 입력창 꽉 차게 - 그랬더니 버튼이 밀림 */
+    height: 32px;
+    border: none;
+    font-size: 24px;
+    padding: 0 16px; /* 위아래 0 좌우 16 */
+}
