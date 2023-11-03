@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습[보드판매량 마진 구하기] - 비동기처리</title>
+    <link rel="stylesheet" href="board.css">
+    <!-- 외부 자바스크립트 파일 참조하기
+    문제제기 - DOM Tree 그리기 전에 DOM API를 사용하게 되는 것 - 시점 문제
+    해결방법 - 순서지향적인, 절차지향적인 언어이다.
+    DOM 구성이 완료된 후에 html문서의 태그정보를 접근해야 한다.
+    브라우저도 캐시메모리를 사용한다. - cache - localStorage, sessionStorage - 개발자 필요한 정보 몰래 관리
+    CPU - Intel, AMD - cache 크기 차이도 있다 - 부동소수점 연산 처리 속도 차이 - 병렬처리
+    브라우저 - DOM(API - 유지보수, 재사용성 불리 - 직관적이지 않다) + BOM(API) + JavaScript
+    -->
+</head>
+<body>
+    <!-- 
+        ES6 - 모듈화 (type=module)
+        자바스크립트 소스도 쪼갠다 - 클라우드, 스프링, 카카오소셜로그인, 카카오페이
+    -->
+    <script>
+    window.addEventListener('load', (event) => {
+        console.log("All resources finished loading!");
+        //버튼의 주소번지 따기
+        const btnMargin = document.querySelector("#btnMargin");
+        //이벤트 처리 핸들러 이름이 onclick -> 리액트에서는 onClick
+        btnMargin.addEventListener('click', (e) => {
+            console.log(e.target);
+            getBoardSold(); // 내 안에 없는 함수. board.js에 있다. 그래서 script 뒤로 두고 defer 뺐음
+        })
+    })
+    </script>
+<body>
+    <h2>보드 판매량</h2>
+    <table width="300px" height="80px">
+        <tr>
+            <th width="120px">보드 판매량</th>
+            <td width="180px"><span id="boardSold">10</span></td>
+        </tr>
+        <!-- 
+            소비자가-구매가=보드 한개당 마진 금액
+            한개당 마진 금액*판매량=마진금액계산
+        -->
+        <tr>
+            <th>구매가</th>
+            <td><span id="cost">100</span>원</td>
+        </tr>
+        <tr>
+            <th>소비자가</th>
+            <td><span id="price">120</span>원</td>
+        </tr>
+    </table>
+    <h2>마진금액 : <span id="cash">0</span>원</h2>
+    <button type="submit" id="btnMargin">마진은?</button>
+    <script src="board.js"></script> <!-- 이 파일을 내려받아서 로컬에서 실행하는 것이다 - 기억 - 시점문제 -->
+</body>
+</html>

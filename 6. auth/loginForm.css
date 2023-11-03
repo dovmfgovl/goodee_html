@@ -1,0 +1,108 @@
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: url('./img/Fotolia_235948322_XL.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.login_form {
+    position: absolute;
+    width: 100%;
+    max-width: 360px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 6px;
+    padding: 50px;
+}
+
+.login_form h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 20px;
+}
+
+.login_form p {
+    margin-bottom: 40px;
+}
+
+label {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 40px;
+    color: blueviolet;
+}
+
+input[type="email"] {
+    width: 100%;
+    display: block;
+    height: 32px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+}
+
+input[type="email"]:hover {
+    border-bottom: 1px solid rebeccapurple;
+}
+
+input[type="email"]:focus {
+    border-bottom: 2px solid burlywood;
+    outline: none;
+}
+
+.btn_submit {
+    width: 80px;
+    padding: 8px;
+    background-color: rebeccapurple;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    float: right;
+}
+
+.divider {
+    clear: both;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.divider hr {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: #dddddd;
+    z-index: 1;
+}
+
+.divider span {
+    position: relative;
+    padding: 0 10px;
+    display: inline-block;
+    color: #4b4b4b;
+    background-color: white;
+    z-index: 2;
+}
+
+.login_form button {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 20px;
+    border-radius: 24px;
+}
+
+.btn_google {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+}
+
+.btn_facebook {
+    background-color: #0b3898;
+    border: 1px solid #0b3898;
+    color: white;
+}

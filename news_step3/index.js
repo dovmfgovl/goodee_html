@@ -42,8 +42,8 @@ for (let i = 0; i < 5; i++) {
     </a>
   </li>
   `;
-  // ul.children(appendChild[0]); //아래와 같은 의미. ul의 첫 번째 자손(li)에 붙인다는 의미
-  ul.appendChild(div.firstElementChild);
+  // ul.children(appendChild[0]); //아래와 같은 의미. append의 첫 번째 자손(li)을 ul에 붙인다는 의미
+  ul.appendChild(div.firstElementChild.firstElementChild);
 } //end of for
 
 container.appendChild(ul);
