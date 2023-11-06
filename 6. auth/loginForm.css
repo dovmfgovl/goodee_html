@@ -1,4 +1,9 @@
+* {
+    border: 1px solid red;
+}
 .bg {
+    top: 0;
+    left: 0;
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -105,4 +110,22 @@ input[type="email"]:focus {
     background-color: #0b3898;
     border: 1px solid #0b3898;
     color: white;
+}
+
+/* 구글 로그인과 페이스북 로그인 버튼 완성 */
+.icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.icon-google {
+    background: url(./img/icon-google.svg) no-repeat center/20px;
+    float: left;
+}
+
+.icon-facebook {
+    background: url(./img/icon-facebook.svg) no-repeat center/20px;
+    float: left;
 }
