@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+//import { initializeApp } from "firebase/app"; //로컬에 설치되어 있을 때 사용하기
 
   const firebaseConfig = {
     apiKey: "AIzaSyBBkw2enzngeRv3XkJcvVufmUSfJNKZRmU",
