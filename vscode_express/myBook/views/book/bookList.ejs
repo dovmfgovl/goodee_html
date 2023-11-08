@@ -1,0 +1,35 @@
+<div class="row mt-5 justify-content-end">
+  <div class="col-6 col-md-4">
+    <form name="frm">
+      <div class="input-group">
+        <input type="text" name="query" class="form-control" value="자바" />
+        <button class="btn btn-danger">검색</button>
+      </div>
+    </form>
+  </div>
+</div>
+<hr />
+<div class="row" id="list_book"></div>
+<div class="text-center mt-2">
+  <button class="btn btn-primary btn-sm px-5" id="prev">이전</button>
+  <span id="page" class="px-3">1/10</span>
+  <button class="btn btn-primary btn-sm px-5" id="next">다음</button>
+</div>
+<script>
+  const bookList = () => {
+    $.ajax({
+      type: "get", 
+      url: "https://dapi.kakao.com/v3/search/book?target=title",
+      headers: { Authorization:"KakaoAK 1270689e90debc4edc797c63e2f3eb5e" },
+      data: { query: '자바', page: 1, size: 5},
+      dataType: 'json',
+      success: function(data){
+        console.log(data); //[object Object] -> JSON.stringify()
+      },
+      error: function(error){
+        console.log(error); //디버깅시 힌트를 얻기 위해서
+      }
+    })//end of 비동기통신 처리
+  }//end of bookList()
+  bookList()
+</script>

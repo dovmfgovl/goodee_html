@@ -51,6 +51,32 @@
 </div>
 <!--========================================<<캐러셀 추가>>=========================================================-->
 <!--========================================<<캐러셀 이벤트 처리>>=========================================================-->
+<script type="module">
+  //파이어베이스 콘솔에서 지원하는 Authentification 빌드 사용해서 플젝을 진행하고 있다
+  //export const app = initializeApp(firebaseConfig)
+  //firebase.js에 정의되어 있으므로 import문이 필요함
+  import { app } from "/javascripts/firebase.js";
+  import { signOut, getAuth } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+  const auth = getAuth(app);
+  console.log(auth);
+  //jquery - DOM API - 복잡하고, 가독성 제로 - jquery 제공하는 코드로 DOM 조작하기 위해 사용
+  // document.getElementById("logout").addEventListener('click', () => {}) // DOM API - 복잡하고 가독성X
+  //$(..) is not defined 발동 - index.js -> jquery-1.12.0.js import 확인 -> jquery('#id')
+  $('#logout').on('click', () => { //jquery에서 제공되는 문법으로 이벤트 처리 중
+    auth.signOut();
+    //아래 코드는 location.href='/' 만나면 볼 수 없다 - 왜냐하면 주소 url이 바뀌니까
+    //바뀌면 뭐? - 기존에 요청이 끊어지고 새로운 요청으로 처리되니까
+    signOut(auth).then(() => { //콜백함수 실행
+    // Sign-out successful.
+    console.log("로그아웃 성공 - 구글서버");
+    location.href="/"; // 로그아웃이 되면 처음으로 돌아가시오. -> http://localhost:3000/
+    }).catch((error) => {
+      console.log(error); //로그아웃 실패시 호출 - 로그 통해 정보 수집
+    });
+    localStorage.clear(); //BOM, DOM, firebase-app.js
+  })
+
+</script>
 <script>
   //너 로컬 스토리지에 이메일 주소 있어?
   console.log(`header - ${localStorage.getItem('email')}`);
@@ -58,12 +84,9 @@
     console.log('여기로 들어왔니?');
     //toggle: 보이는 건 안 보임, 안 보이는 건 보임
     $('#login, #logout, #mypage, #cart').toggle();
-    $('#logout a').html(localStorage.getItem('email'));
+    $('#mypage a').html(localStorage.getItem('email')); //이메일 주소를 mypage a태그에 끼워넣어달라
   }
-  $('#logout').on('click', () => {
-    localStorage.clear();
-    location.href="/"; // 로그아웃이 되면 처음으로 돌아가시오. -> http://localhost:3000/
-  })
+ 
   //함수 표현식에서 function을 붙이면 변수의 호이스팅 이슈와 같이 무조건 제일 앞 쪽에 올려놓는다.
   //그래서 호출을 먼저하고 함수 구현이 뒤에 있어도 에러가 없다
   //화살표 함수(arrow function) - 안 됨
@@ -99,3 +122,7 @@
     applySlider();
 </script>
 <!--========================================<<캐러셀 이벤트 처리>>=========================================================-->
+
+<!-- 
+  https://firebase.google.com/docs/auth/web/google-signin?hl=ko&authuser=0
+ -->

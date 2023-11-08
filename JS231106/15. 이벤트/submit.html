@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 - submit 이슈</title>
+  <script>
+    function login(event){
+      console.log(event.target);
+      console.log('로그인 호출 성공');
+      document.getElementById('f_login').submit();
+    }
+  </script>
+</head>
+<body>
+  <form id="f_login" method="get" action="./submitAction.html">
+    <input type="text" name="mem_id" id="mem_id">
+    <input type="button" value="로그인" onclick="login(event)">
+    <button>로그인2</button>
+  </form>
+</body>
+</html>

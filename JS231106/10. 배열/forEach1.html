@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>시작</h3>
+  <script>
+    const fruits = ['🍎', '🍓', '🫐'];
+    fruits.forEach((element, cnt) => {
+      console.log(cnt, element)
+      //document는 forEach1.html 문서 전체를 받는 객체
+      document.write(cnt, element) //부라우저에 js코드를 가지고 태그나 문자를 쓴다.
+      //자바를 가지고도 브라우저 쓴다가 된다면 웹서비스를 제공할 수 있지 않나? Servlet
+    })
+  </script>
+  <h3>끝</h3>
+</body>
+</html>

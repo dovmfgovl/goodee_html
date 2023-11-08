@@ -46,17 +46,16 @@
 //기존 사용자가 자신의 이메일 주소와 비밀번호를 사용해 로그인할 수 있는 양식을 만듭니다.
 //사용자가 양식을 작성하면 signInWithEmailAndPassword 메서드를 호출합니다.
     signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    console.log(userCredential); //[object, Object]
+  .then((response) => { //then은 promise
     // Signed in 
-    const user = userCredential.user;
-    //JSON.stringify(user)
+    const user = response.user;
+    //JSON.stringify(user) -> string 변환됨 - 글자를 알아볼 수 있다 - Object 출력하지 않고
     console.log(`user ===> ${JSON.stringify(user)}`); //[object, Object] - JSON.parse() : JSON형식을 Array로 바꿔줌
     console.log(`uid ===> ${user.uid}`);
     console.log(`email ===> ${user.email}`);
-    localStorage.setItem("uid",`${user.uid}`)
-    localStorage.setItem("email",`${user.email}`)
-    // ...
+    localStorage.setItem("uid",`${user.uid}`) // 로컬 브라우저 저장소에 담음
+    localStorage.setItem("email",`${user.email}`) // 로컬 브라우저 저장소에 담음
+    location.href="/";
   })
   .catch((error) => {
     const errorCode = error.code;

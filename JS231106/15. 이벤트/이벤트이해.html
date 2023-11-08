@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이벤트이해</title>
+  <script src="이벤트이해.js" defer></script>
+</head>
+<body>
+  <a href="#">링크</a>
+</body>
+</html>
+<!--
+  1. 사용자가 발생시키는 이벤트
+  : click, mouseover, mousemove, scroll, mousewheel, keypress, keydown, keyup
+  2. 시스템이 발생시키는 이벤트
+  : load, error
+
+  이벤트 연결 방법
+  1. 이벤트 핸들러 이용하는 방법
+  DOM요소.onClick = () => {}
+  DOM요소.onKeyup = () -> {}
+  2. 내장 함수를 이용하는 방법
+  : 두 번째 파라미터에 있는 함수를 콜백함수라고 하고 이벤트명에 해당하는
+    이벤트가 발동하면 자동으로 실행된다.
+  DOM요소.addEventListener('이벤트명{on뺀}', () => {} : 콜백함수)
+-->
