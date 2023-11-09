@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서관리시스템 - html 활용코드</title>
+</head>
+<body>
+  <button id="btnLogin">로그인</button>
+  <button id="btnLogout">로그아웃</button>
+  <script type="module">
+    import {firebaseApp} from "../service/firebase.js";
+    import {getAuth} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+    import AuthLogic from "../service/authLogic.js"
+    import { loginGoogle, logOut } from "../service/authLogic.js"
+    const auth = getAuth(firebaseApp);
+    console.log(auth);
+    //authLogic.js에서 구현한 클래스를 인스턴스화 하기
+    const authLogic = new AuthLogic();
+    //객체생성이 되었으니까 전역변수를 호출할 수 있다.
+    //console.log(authLogic['googleProvider']);
+    const btnLogin = document.querySelector('#btnLogin');
+    btnLogin.addEventListener("click", async(event) => {
+      console.log('로그인버튼');
+      event.preventDefault();
+      //authLogic.js의 loginGoolge함수 호출 결과로 돌려받은 값
+      const result = await loginGoogle(auth, authLogic.googleProvider);
+      console.log(result ['uid']);
+      console.log(result.displayName);
+      console.log(result ['email']);
+    })//////end of 로그인 끝
+
+    const btnLogout = document.querySelector("#btnLogout");
+    btnLogout.addEventListener('click', (event) => {
+      logOut(auth); //인증정보를 쥐고 있다
+    })
+
+  </script>
+</body>
+</html>

@@ -19,8 +19,21 @@
   <body>
     <div class="container">
       <%-include("header.ejs")%>
+
+<div id="loading" class="row my-5">
+  <div class="col my-5"><img src="/images/loading.gif" alt="로딩이미지"></div>
+</div>
+
       <%-include(pageName)%>
       <%-include("footer.ejs")%>
     </div>
   </body>
+  <script>
+    //DOM이 다 그려진거야?
+    $(document).on('ready', () => {
+      setTimeout(() => {
+        $('#loading').hide();
+      }, 1000)
+    })
+  </script>
 </html>

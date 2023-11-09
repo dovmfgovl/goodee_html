@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 - Handlebars[템플릿엔진]</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+  <!-- 
+    x-handlebars-template sub mime type은 표준이 아니다?
+    표준이 아니라는 건 재해석이 필요하다 - 모르는 애
+    핸들바스로 되어있는 템플릿 컴파일 해야 함
+  -->
+  <script id="tb-dept" type="text/x-handlebars-template">
+  <table class="table">
+    <!-- 헤더 영역 시작 -->
+    <thead>
+      <tr>
+        <th scope="col">부서번호</th> <!-- th는 가운데 정렬 -->
+        <th scope="col">부서명</th>
+        <th scope="col">지역</th>
+      </tr>
+    </thead>
+    <!-- 헤더 영역 끝 -->
+    <!-- 데이터셋 추가하는 화면 제공되는 영역 시작 -->
+    <tbody>
+      {{#depts}}
+      <tr>
+        <td>{{deptno}}</td>
+        <td>{{dname}}</td>
+        <td>{{loc}}</td>
+      </tr>
+      {{/depts}}
+    </tbody>
+    <!-- 데이터셋 추가하는 화면 제공되는 영역 끝 -->
+  </table>
+  </script>
+</body>
+<script>
+  //핸들바스 템플릿을 가져온다.
+  const tb_dept = $("#tb-dept").html();
+  const template = Handlebars.compile(tb_dept);
+  //핸들바스 템플릿에 바인딩될 데이터셋 입니다 - Array
+  const data = {
+        depts: [
+          { deptno: 10, dname: "개발1팀", loc: "서울" },
+          { deptno: 20, dname: "운영팀", loc: "제주" },
+          { deptno: 30, dname: "품질관리팀", loc: "세종" },
+        ],
+      };
+      //핸들바 템플릿에 데이터를 바인딩해서 html을 새로 생성함
+      const deptList = template(data);
+      //위에서 생성된 템플릿을 body태그에 붙인다 (추가)
+      $('body').append(deptList);
+</script>
+</html>
+<!-- 
+  select된 결과가 3건이라면 for문을 돌려서 한 개 로우씩 3번 반복되어야 한다.
+  문제제기: 자바코드와 태그코드가 섞이는 게 불편하다
+    : 가독성 - DOM Tree -> 태그로만 작성해본다(유리)
+    : 디자인과 로직은 분리되어야 한다.
+    : 좌중괄호 우중괄호 짝이 안맞으면 500번 에러 발생
+      - 대안으로 템플릿엔진을 지원하게 되었다
+-->

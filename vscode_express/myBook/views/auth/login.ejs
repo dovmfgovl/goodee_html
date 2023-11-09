@@ -12,7 +12,7 @@
           class="form-control"
           name="password"
           type="password"
-          value="12345678"
+          value="12341234"
         />
       </div>
       <div class="my-3">
@@ -21,6 +21,7 @@
         -->
         <button class="btn btn-success w-100">로그인</button>
       </div>
+      <!-- 회원가입 링크경로는 반드시 router/user.js를 확인할 것 -->
       <div class="text-end mt-3"><a href="/users/join">회원가입</a></div>
     </form>
   </div>
@@ -28,7 +29,7 @@
 <script type="module">
   import { app } from "/javascripts/firebase.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
-  const auth = getAuth(app);
+  const auth = getAuth(app); //api key, 너 정보
   console.log(auth);
 
   //로그인 버튼을 눌렀을 때
@@ -46,22 +47,20 @@
 //기존 사용자가 자신의 이메일 주소와 비밀번호를 사용해 로그인할 수 있는 양식을 만듭니다.
 //사용자가 양식을 작성하면 signInWithEmailAndPassword 메서드를 호출합니다.
     signInWithEmailAndPassword(auth, email, password)
-  .then((response) => { //then은 promise
-    // Signed in 
-    const user = response.user;
-    //JSON.stringify(user) -> string 변환됨 - 글자를 알아볼 수 있다 - Object 출력하지 않고
-    console.log(`user ===> ${JSON.stringify(user)}`); //[object, Object] - JSON.parse() : JSON형식을 Array로 바꿔줌
-    console.log(`uid ===> ${user.uid}`);
-    console.log(`email ===> ${user.email}`);
-    localStorage.setItem("uid",`${user.uid}`) // 로컬 브라우저 저장소에 담음
-    localStorage.setItem("email",`${user.email}`) // 로컬 브라우저 저장소에 담음
-    location.href="/";
+    .then((response) => { //then은 Promise 약속할게 - 응답을 다 받을때까지 기다렸다가 response파이어베이스서버 담아줌
+      // Signed in 
+      const user = response.user;
+      //JSON.stringify(user) -> string 변환됨 - 글자를 알아볼 수 있다 - Object 출력하지 않고
+      console.log(`user ===> ${JSON.stringify(user)}`); //[object, Object] - JSON.parse() : JSON형식을 Array로 바꿔줌
+      console.log(`uid ===> ${user.uid}`);
+      console.log(`email ===> ${user.email}`);
+      localStorage.setItem("uid",`${user.uid}`) // 로컬 브라우저 저장소에 담음
+      localStorage.setItem("email",`${user.email}`) // 로컬 브라우저 저장소에 담음
+      location.href="/";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-
-  })
-
 </script>
