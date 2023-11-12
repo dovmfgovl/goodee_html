@@ -1,0 +1,21 @@
+1. 포트설정
+/bin/www - 포트설정 현재 3000번으로 설정됨
+
+2. 정적페이지
+web application server - 정적페이지 위주 처리(HTML, CSS, JavaScript) - Front Server
+: public 폴더 배포하면 된다.
+text/html, text/JavaScript, image/gif, image/png, video/mp4, video/avi - 리소스
+public > images or javascript or stylesheets
+
+동적처리지원 - 스토리지 - java베이스 서버
+enterprise server - 대형시스템, 모니터링시스템, DB서버의 커넥션 풀기능 지원, 분산서비스 지원, 원격객체 호출지원
+예) JBOSS, JEUS, Webspere
+// 404번 발견하면 제일 먼저 routers 확인할 것
+routes - 라우팅, 해커뉴스 router 함수 - 화면 중계기
+: 라우팅은 /루트 슬래시 아래부터 관리해주면 된다
+
+index.json : 로그인[/login -> 물리적인 위치 -> /views/auth/login.ejs]
+개발자가 작성한 추가 페이지들은 모두 다 views폴더 하위에 배치해야 한다 - app.js
+UI(views폴더)에 대한 설정은 어디에 했나요?
+
+users.js : 대시보드, MyPage, 장바구니,....., 회원가입, 회원정보 수정, 
