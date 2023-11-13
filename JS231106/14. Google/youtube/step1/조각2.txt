@@ -1,0 +1,16 @@
+// 왜 템플릿 엔진이 나오게 되었을까?
+
+content += `<ul class="videos">`;
+for (let i = 0; i < items.length; i++) {
+  //25번 반복 - 25개의 li
+  content += `<li class="container">`;
+  content += `<div class="video">`;
+  content += `<img class="thumbnail" src='${items[i].snippet.thumbnails.medium.url}'/>`; 
+  content += `<div>`;
+  content += `<p class="title">${items[i].snippet.title}</p>`;
+  content += `<p class="channelTitle">${items[i].snippet.channelTitle}</p>`;
+  content += `</div>`;
+  content += `</div>`;
+  content += `</li>`;
+}
+content += `</ul>`;

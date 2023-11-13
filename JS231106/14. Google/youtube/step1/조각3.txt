@@ -1,0 +1,6 @@
+// 키워드 - innerHTML, innerText
+// jquery - XXX.html() or XXX.text()
+
+document.querySelector('#root').innerHTML = content;
+
+이러한 패턴이 reactjs에서도 동일하게 적용되었다.

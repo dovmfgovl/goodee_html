@@ -1,0 +1,24 @@
+const ajax = new XMLHttpRequest();
+
+ajax.open('GET', Youtube_URL, false);
+ajax.send(); //send() 호출될 때 비로소 서버측에 요청이 일어남 - 0번에서 출발함 - 1번(전화옴) - 2번(기사가 물건 가져감) - 3번(이동) - 4번(물건 도착)
+
+//서버측에서 응답으로 보내온 json 메시지를 문자열로 변환한다.
+//[object Object] -> {title: 제목, contents: [{},{},{},,,]}
+const most = JSON.parse(ajax.response); //콜백 컨벤션 담김 -> ajax.response 받아옴
+resolve(파라미터에 담긴 내용 -> ajax.response)
+
+날 것으로 처리한 코드였음
+new Promise((resolve, reject)=>{})
+
+fetch
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://www.googleapis.com/youtube/v3/videos?part=snippet&key=AIzaSyDHyKuSsg7WSDE7ajaG6BYd71-MiDEEwQo&maxResults=3&chart=mostPopular", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
