@@ -1,7 +1,0 @@
-<개선점>
-목록과 내용 화면이 같은 화면으로 보인다.
-
-왜 같은 화면에 동시에 표시되는지를 살펴본다.
-container.appendChild(ul);
-container.appendChild(content);
-로 인해 목록과 내용이 동시 표시됨.

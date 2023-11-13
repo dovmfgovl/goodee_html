@@ -1,0 +1,135 @@
+<div class="row mt-5 justify-content-end">
+  <div class="col-6 col-md-4">
+    <form name="frm">
+      <div class="input-group">
+        <input type="text" name="query" class="form-control" value="자바" />
+        <button class="btn btn-danger">검색</button>
+      </div>
+    </form>
+  </div>
+</div>
+<hr />
+<!-- 카카오 도서검색 결과를 출력할 공간 마련하기 -->
+<div class="row" id="list_book"></div>
+<!-- 카카오 도서검색 결과를 출력할 공간 마련하기 -->
+<!-- Handlebars Helper 추가 -->
+<script>
+  //가격 포맷형식 적용하기 - 3자리에 콤마 처리 - 정규표현식 이용
+  Handlebars.registerHelper("format", function(price){
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+  })
+  //thumbnail이 없을 때 더미 이미지로 대체하기
+  Handlebars.registerHelper("image", function(thum){
+    if(thum) return thum;
+    else return "https://via.placeholder.com/120x174";
+  })
+</script>
+<!-- Handlebars Helper 추가 -->
+
+<!-- list_book 안에 들어갈 템플릿 작성하기 -->
+  <script id="temp_book" type="text/x-handlebars-template">
+    {{#each documents}}
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card my-2">
+        <div class="card-body">
+          <img src="{{image thumbnail}}" index="{{@index}}" alt="도서이미지" style="cursor: pointer; width: 80%; margin-left: 12px;">
+          <div class="mt-2">
+            {{title}}
+          </div>
+        </div>
+        <div class="card-footer" style="font-size: 0.7rem;">
+          <div class="text-center">
+            {{format price}}
+            <span class="cart ms-3" style="cursor: pointer; color: green;">CART</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </script>
+
+<div class="text-center mt-2">
+  <button class="btn btn-primary btn-sm px-5" id="prev">이전</button>
+  <span id="page" class="px-3">1/10</span>
+  <button class="btn btn-primary btn-sm px-5" id="next">다음</button>
+</div>
+<script>
+  //사용자가 입력한 키워드 가져오기
+  let query = $(frm.query).val();
+  let page = 1;
+
+  //DOM에 대한 접근을 jquery 이용함 - jquery-1.12.0.js
+  //document.getElementById('m_id') -> $('#m_id') or $('m_id') or $('frm')
+  //jquery - 표준은 아니다 - 표준은 바뀌지 않음. 다른 라이브러리가 나와도 호환됨
+  //  브라우저에 따라 동작이 안될 수 있다 - 크로스 브라우징 서비스(jquery가 - 어느 브라우저에서나 잘 된다..그 당시)
+  //<이벤트처리 방법>
+  //  이벤트 핸들러 - 마지막 것만 적용됨
+  //  내장함수 - 매번 처리됨 - 이벤트 핸들러 이름에서 on만 떼고 쓴다
+  //    이벤트 관련 정보, 힌트 받고자 할 때 사용: e.target or e.currentTarget
+  //submit - 새로고침 발생 이슈
+  //  해결) e.preventDefault()
+  //다음 버튼을 눌렀을 때 - page를 1씩 증가시킴
+  $('#next').on('click', () => {
+    page++;
+    bookList();
+  })
+  //이전 버튼을 눌렀을 때 - page를 1씩 감소시킴
+  $('#prev').on('click', () => {
+    page--;
+    bookList();
+  })
+
+  //도서 이미지를 클릭했을 때 도서 식별자 가져오기
+  $('#list_book').on('click', '.card img', () => {
+    //아래 this는 누구인가요? - <img index=1>
+    let index = $(this).attr("index");
+    console.log(`사용자가 선택한 이미지 index값은 ${index}`);
+  })
+
+
+  const bookList = () => {
+    console.log(`page=${page}, query=${query}`);
+    $.ajax({
+      type: "get", 
+      url: "https://dapi.kakao.com/v3/search/book?target=title",
+      headers: { Authorization:"KakaoAK 1270689e90debc4edc797c63e2f3eb5e" },
+      data: { query: query, page: page, size: 20}, //query: query를 줄여서 query만 적는 것도 가능!
+      dataType: 'json',
+      success: function(data){
+        console.log(data); //[object Object] -> JSON.stringify()
+        //핸들바스 템플릿을 가져온다.
+        const temp = Handlebars.compile($("#temp_book").html());
+        //위에서 읽어온 템플릿(반복문 적용된) 결과를 div 태그 내부에 끼워넣기 - 현재는 껍데기만 있으니까 
+        $('#list_book').html(temp(data))
+        //핸들바스 템플릿에 바인딩될 데이터셋 입니다 - Array
+        //너 마지막 페이지야?
+        let is_end = data.meta.is_end;
+        console.log(`너 마지막 페이지야? ${is_end}`);
+        let total = data.meta.total_count;
+        console.log(`검색결과의 총 레코드 수 ${total}`);
+        //총 페이지 수 - total/perpage
+        //마지막 페이지 수
+        let last = Math.ceil(total/20);
+        //바뀐 페이지 번호는 어떻게 구하지?
+        $("#page").text(`${page}/${last}`);
+        //너 첫번째 페이지야?
+        if(page===1) $("#prev").attr("disabled", true);
+        else $("#prev").attr("disabled", false);
+        //혹시 마지막 페이지야?
+        if(is_end) $("#next").attr("disabled", true);
+        else $("#next").attr("disabled", false);
+      },
+      error: function(error){
+        console.log(error); //디버깅시 힌트를 얻기 위해서
+      }
+    })//end of 비동기통신 처리
+  }//end of bookList()
+  bookList()
+  //submit 새로고침 방어하기
+  $(frm).on('submit', (e) => {
+    e.preventDefault();
+    query = $(frm.query).val(); //val()는 jquery가 제공하는 함수임
+    page = 1;
+    bookList();
+  })
+</script>
