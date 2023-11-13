@@ -47,7 +47,7 @@ for (let i = 0; i < 5; i++) {
   const a = document.createElement('a'); //<a>
   a.href = `#${newsList[i].id}`; //<a href=''>여기 들어갈 정보가 현재 없다</a>
   //console.log(newList[i].title);
-  //innerHTML을 통해서 a태그 내부에 택스트노드를 결정해준다.
+  //innerHTML을 통해서 a태그 내부에 택스트노드를 결정해준다. 
   a.innerHTML = `${newsList[i].title}(🚨${newsList[i].comments_count})`;
   li.appendChild(a); //<li>에 <a>를 붙여달라는 의미
   ul.appendChild(li); //<ul>태그에 <li> 붙여달라는 의미

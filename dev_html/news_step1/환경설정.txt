@@ -1,0 +1,15 @@
+작업지시서
+
+먼저 Yarn 이나 npm 으로 Parcel 을 설치하세요.
+1. npm install -g parcel-bundler
+
+그 다음, package.json 파일을 프로젝트 디렉토리에 만드세요.
+2. npm init -y 엔터
+
+3. 그럼, index.html 과 index.js 파일을 만들어 봅시다.
+
+Parcel 은 파일 변화를 자동으로 다시 빌드(rebuild) 하고 빠른 모듈 교체를 지원하는 내장 개발용 
+서버가 있어 빠른 개발이 가능해 집니다. 그저 진입 파일을 지정하면 됩니다:
+터미널에서
+4. parcel index.html
+
