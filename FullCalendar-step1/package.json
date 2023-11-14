@@ -1,0 +1,15 @@
+{
+  "name": "fullcalendar-step1",
+  "version": "1.0.0",
+  "description": "카렌더 라이브러리 소개",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fullcalendar": "^6.1.9"
+  }
+}

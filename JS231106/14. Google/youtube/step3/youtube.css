@@ -41,6 +41,11 @@
   gap: 14px;
 }
 
+.container {
+  width: 100;
+  padding: 0.2rem;
+}
+
 /* li태그 css작성 */
 .video {
   display: flex; /* flex 방향 디폴트는 row */
