@@ -5,9 +5,10 @@
 const movieList = (movieTitle) => {
   return new Promise((resolve, reject) => {
     fetch(`http://www.omdbapi.com/?apikey=4220d5ea&s=${movieTitle}`)
-      .then(res => res.json())
-      .then(json => {
-        console.log(json.Response);
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(`json 응답여부 : ${json.Response}`)
+        console.log(`검색되는 총 갯수 : ${json.totalResults}`)
         if(json.Response === 'False'){
           //아래가 호출되면 catch로 간다
           //.앞에는 누가 있는걸까? - then으로 간다면 Promise가 있다
@@ -17,16 +18,21 @@ const movieList = (movieTitle) => {
       }
       resolve(json)
     })
-    .catch(error => {
-      reject(error);
+    .catch((error) => {
+      reject(error)
     })
-    .finally(() => {
-      console.log('무조건 호출');
-    })
-  }) //end of Promise
-} //end of movieList
+    .finally(() => console.log('무조건 호출'))
+})
+}
 
 movieList('avatar')
-  .then(movies => console.log(movies))
-  .catch(error => console.log(error))
-  .finally(() => loading = false)
+  .then((movies) => console.log(movies))
+  .catch((error) => console.log(error))
+  .finally(() => console.log('처리완료'))
+  .finally(() => (loading = false))
+
+movieList('Frozen')
+  .then((movies) => console.log(movies))
+  .catch((error) => console.log(error))
+  .finally(() => console.log('처리완료'))
+  .finally(() => (loading = false))
