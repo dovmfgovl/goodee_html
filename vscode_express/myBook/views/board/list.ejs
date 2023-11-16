@@ -1,0 +1,74 @@
+<div class="row my-2">
+  <div class="col">
+      <h1 class="text-center mb-2">게시글</h1>
+      <div class="text-end">
+          <button class="btn btn-primary btn-sm" id="btn-write">글쓰기</button>
+      </div>
+      <div id="boards"></div>
+      <div class="text-center my-3" id="btn-group" style="display:none">
+          <button class="btn btn-primary btn-sm" id="btn-prev">이전</button>
+          <span class="px-2" id="span-page">1</span>
+          <button class="btn btn-primary btn-sm" id="btn-next">다음</button>
+      </div>
+  </div>
+</div>
+
+<!--게시글목록 템플릿 : 템플릿에서 JSON 데이터 안의 JSON 데이터는 . 으로 호출한다.-->
+<script id="temp" type="text/x-handlebars-template">
+  {{#each .}}
+  <div class="card my-2" style="font-size:0.8rem">
+      <div class="card-body">
+          <a href="/board/{{ id }}"><h5>{{ title }}</h5></a>
+          <div class="ellipsis2">{{ body }}</div>
+      </div>
+      <div class="card-footer">
+          <span>Posted on {{ date }} by {{ email }}</span>
+      </div>
+  </div>
+  {{/each}}
+</script>
+
+<script type="module">
+  import { app } from "/javascripts/firebase.js";
+  import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+  import { query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+  const db = getFirestore(app);
+  let page = 1;
+
+  //호이스팅 이슈는 변수에만 적용되는 게 아님
+  //함수도 호이스팅이 일어난다(전역화되어 제일 앞에 위치하는 것 - function은 발생하지만 arrow는 발생 안 됨)
+  getList();
+  async function getList(){ //arrow function은 호이스팅 일어나지 않음
+    const q = query(collection(db, 'board'), orderBy('date', 'desc'))
+    const snapshot = await getDocs(q);
+    let rows = [];
+    snapshot.forEach((row) => {
+      //console.log(`${element} ${index} ${arr}`);
+      //console.log(element.data()); //배열이 2번 출력될 것이다
+      console.log(row.id);
+      rows.push({id:row.id,...row.data()});
+      console.log(rows); //원본에 id키를 갖는 값이 들어갔나?
+      let temp = Handlebars.compile($('#temp').html());
+      $('#boards').html(temp(rows));
+    });//end of forEach
+  }
+</script>
+
+<script>
+  //개발자 센터 > application > storage > Local storage
+  const email = localStorage.getItem("email");
+  $("#btn-write").on("click", () => {
+    //로그인을 해야만 글쓰기 권한이 있다
+    //너 로그인 했니? 너 email값 쥐고 있어? - 어디에? localStorage
+    if(email){
+      location.href = "/board/write";
+    }
+    //나 로그인 안했어. 하고 와 
+    else {
+      location.href = "/login";
+    }
+
+    //
+  })
+</script>

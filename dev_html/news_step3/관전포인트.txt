@@ -1,0 +1,17 @@
+1-3에서는 해커뉴스 서버에서 응답으로 받아온 데이터셋들을
+화면에 출력하기 위해서 
+
+<ul>
+  : 양 적음 - 오타 줄일 수 있음
+vs
+document.creatElement('ul'); <- DOM API
+  : 양 많음 - 직관적이고 구조가 한 눈에 잘 들어와 코드 수정에 도움됨? - 그럼 생각해볼만한 문제 아닌가?
+
+creatElement, appendChild 사용하는 것 보다는
+태그를 직접 열거하는게 더 직관적
+정말 그런가?
+  - 문자열로 묶어보자
+  - 배열에 담아보자(변하니까.. 동적, 데이터 변하니까)
+    push
+    join
+    <div></div> innerHTML, xhrObject.html(); - appendChild로 하나하나 담는게 아니라

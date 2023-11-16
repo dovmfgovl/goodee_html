@@ -20,12 +20,18 @@
   <body>
     <div class="container">
       <%-include("header.ejs")%>
-
+<!-- 모래시계 -->
 <div id="loading" class="row my-5">
   <div class="col my-5"><img src="/images/loading.gif" alt="로딩이미지"></div>
 </div>
+<!-- pageName은 변수 
+      : routes/index.js에서 선언됨(라우팅을 담당하는 JS파일에 선언된 변수)
+    include 안에 pageName에는 쿼테이션이 없다. 따라서 변수명이다 board/read.ejs
+-->
       <%-include(pageName)%>
       <%-include("footer.ejs")%>
+      <!-- 글쓰기에서 유효성체크 후 알림 처리 모달 추가 -->
+      <%-include("common/modal_alert.ejs")%>
     </div>
   </body>
   <script>

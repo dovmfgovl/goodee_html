@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Module dependencies. - 모듈 사이에 의존관계가 있을 수 있다
+ * <script type=module>import문 사용함</script>
+ * require예약어는 node_modules에서 가져온다 - 의존성 주입을 받음
+ * nodejs기반으로 플젝을 진행할 때는 require 사용해야 함
+ * 우리는 브라우저를 통해 서비스를 제공한다면 import문
  */
 
 var app = require('../app');

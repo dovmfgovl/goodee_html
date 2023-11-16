@@ -13,13 +13,13 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
   res.render('index', { title: '로그인', pageName:"auth/login.ejs" });
 });
-router.get('/board/list', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
+router.get('/board', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
   res.render('index', { title: '글목록', pageName:"board/list.ejs" });
 });
 router.get('/board/write', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
   res.render('index', { title: '글쓰기', pageName:"board/write.ejs" });
 });
-router.get('/board/read/:id', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
+router.get('/board/:id', function(req, res, next) { //app.js -> path 라이브러리 __dirname, views
   let id = req.params.id;
   res.render('index', { title: '상세보기', pageName:"board/read.ejs", id: id });
 });
