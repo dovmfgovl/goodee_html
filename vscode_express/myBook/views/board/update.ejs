@@ -1,0 +1,73 @@
+<div class="row my-5">
+  <div class="col">
+      <h1 class="text-center mb-5">글수정</h1>
+      <form name="frm" method="post">
+          <input class="form-control my-2" name="title" placeholder="제목을 입력하세요.">
+          <textarea class="form-control" name="body" rows="10" placeholder="내용을 입력하세요."></textarea>
+          <div class="text-center my-2">
+              <button class="btn btn-primary">글수정</button>
+              <button class="btn btn-secondary" type="reset">수정취소</button>
+          </div>
+      </form>
+  </div>
+</div>
+<!-- 외부에서 제공되는 라이브러리 사용 -->
+<!--   
+  CRUD 패턴화
+    입력: 새로쓰기 -> UI -> 입력받고 -> 저장버튼(DB연동 - await addDoc) -> 목록페이지로 이동(url바뀜 or '안바뀌고 전환-유지됨')
+    수정: 있는 걸 바꿈 -> DB경유 -> UI출력 -> 수정내용 작성 -> 저장버튼(DB연동 - setDoc) -> 목록페이지로 이동
+        : 추가로 생각해 볼 문제 - 내가 어디서 왔지? - 관리함 - 이전버튼 눌렀을 때 내가 있던 곳으로 감-배려
+    삭제: 있는 거 삭제 - 비번이 있다 없다에 따라 로직이 달라지기도 한다(업무 프로세스에 따라)
+        : 삭제버튼 -> 정말 삭제하겠습니까? 확인 후 -> deleteDoc호출 -> 목록페이지로 이동
+    조회: 있는 거 꺼내옴
+        : 한 건 조회 - routes>index.js -> url패턴(메소드 나눈다) ->
+-->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script type="module">
+  import { app } from "/javascripts/firebase.js";
+  import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+  const db = getFirestore(app);
+
+  //사용자가 선택한 id번호를 가져온다
+  const id = "<%=id%>"; //반드시 쿼테이션을 붙여야 값으로 취급. 안붙이면 변수 취급.
+  console.log(id);
+
+  let row = null;
+
+  getRow(); //getRow is not defined
+  async function getRow(){
+    //데이터를 이미지화 해서 읽고 쓴다 - firebase database
+    const snapshot = await getDoc(doc(db, `board/${id}`));
+    row = snapshot.data();
+    console.log(row);//firestore Database의 document 하나를 row라고 함
+    //화면 그려진 위치에 추가
+    //<form name=frm><input type='text' name='title' or body>
+      //val(value): 화면에 db에서 꺼내온 값을 초기화
+    $(frm.title).val(row.title);
+    $(frm.body).val(row.body);
+  }
+
+  $(frm).on('submit', async(evet) => {
+    event.preventDefault(); //새로고침 사이드이펙트 발동 막음
+    $('#modal-confirm .modal-body').html("수정된 정보를 저장하시겠습니까?");
+    $('#modal-confirm').modal("show");
+    //모달창에서 예(btn-primary) 버튼을 눌렀을 때 이벤트 감지되고 실행문 진행됨
+    //즉 외부에서 호출되는 함수가 아니니까 또 다른 게 onclick 이벤트 핸들러의 콜백함수라서
+    //즉 내부에서 호출되고 끝나는 거니까 호이스팅 함수일 필요없다.
+    let title = $(frm.title).val();
+    let body = $(frm.body).val();
+    $('#modal-confirm').on("click", ".btn-primary", async() => { //수정하기 처리에 대한 콜백
+      await setDoc(doc(db, `board/${id}`),{
+        ...row, title, body
+      });
+      //성공하면 목록페이지로 간다
+      location.href = "/board";
+    }); //end of 모달창에서 예 버튼 눌렀을 때 이벤트 처리하기
+
+    //submit 이슈 해결하기
+    $(frm).on("reset", (e) => {
+      e.preventDefault();
+      getRow();
+    }); //수정한 내용 무시하고 새로 데이터 가져오기
+  });
+</script>

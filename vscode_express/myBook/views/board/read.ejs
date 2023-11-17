@@ -21,15 +21,23 @@
       </div>
   </div>
 </script>
-
+<!--  
+  !!!주의사항1) - module에서 import하는 함수는 일반 script태그에서 접근 불가!!!
+    <script type=module></script>
+    <script type="text/javascript">
+      const a = await.addDoc() -> 개발자 센터 - addDoc is not definded 가 뜸
+  </script>
+-->
 <script type="module">
   import { app } from "/javascripts/firebase.js";
-  import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
-  import { query, where, getDoc, orderBy, doc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+  import { getFirestore, collection, doc, deleteDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
   const db = getFirestore(app);
+  //브라우저도 캐시메모리 사용하고 있다
+  const email = localStorage.getItem("email"); //브라우저 localStorage에 담긴 값 가져옴
+  //!!!주의사항!!! - 아래에서 id값을 가져오려면 반드시 routes>index.js파일에서 해당 라우팅 소스 확인할 것
   //파라미터로 넘긴 값을 받아올 수 있나? - let id = req.params.id;(index.js의)
   //JS에서는 값에 쿼테이션이 없으면 변수명으로 취급되니까 주의할 것
-  const id = '<%=id%>';
+  const id = '<%=id%>'; //해커뉴스에서 hashchange와는 다른 방식이니 구분할 것
   console.log(id);
   //list.ejs에서 제목에 링크(/board/:id)를 걸었다. 클릭하면 routes/index.js에 등록된 이름을 따라 호출될 
   //페이지 이름(pageName:"board/read.ejs") 찾아냄
@@ -37,10 +45,37 @@
   //한 건을 가져올때는 getDoc() 사용, n건은 getDocs()
   //  주의) getDoc 앞에는 반드시 await 붙일 것 - async 없지만 무조건!
   const snapshot = await getDoc(doc(db, 'board', id));
-  const row = snapshot.data();
+  const row = snapshot.data(); //한 건만 담고 있다. 왜냐하면 getDoc할 때 세번째 파라미터에 id를 넘겨서
   console.log(row);
   //현재 페이지에 Handlebars에 대한 링크가 없어도 SPA로 처리되고 있어 참조 가능.
   //  즉 undefined 발동하지 않음
   let temp = Handlebars.compile($('#temp').html());
   $("#board").html(temp(row));
+
+  //localStorage에 담겨있는(로그인할 때 담음) 이메일 주소와
+  //  Firestore Database에서 꺼낸 한 개 로우가 쥐고 있는 이메일 주소가 같아?
+  //    응 - 수정버튼과 삭제버튼 모두 보여줘 / 아니 - 버튼 못 봐
+  if( email==row.email ){
+    $('#btn-group').toggle();
+  }
+  //JS는 절차지향적 = 순서지향적 = 위에서 아래로 실행 - 그래서 호이스팅 이슈 발생함
+  //!!주의사항2) - arrow function(호이스팅 이슈 없다)과 function(호이스팅 됨-지변이면서 전역화되어 호출)을 잘 구분해서 사용할 것!!
+  //게시글 수정하기 구현
+  $("#btn-update").on('click', async function(){ //비동기처리 구간 - Promise -> async or await
+    //firestore database연동 필요없는 상황임
+    //  수정페이지로 이동해서 수정할 내용을 작성한 다음, db연동이 필요하니까 페이지이동만 처리할게
+    location.href = "/board/update/"+id;
+  })
+
+
+  //게시글 삭제하기 구현
+  $("#btn-delete").on('click', async function(){ //비동기처리 구간 - Promise -> async or await
+    //너 몇 번 글 삭제할거니?
+    //NoSQL - 텍스트기반 디비니까 - Document - 문장 - 문자열
+    if(confirm(id+"번 게시글 삭제할거니?")){
+      await deleteDoc(doc(db, `board/${id}`));
+      //삭제 된 후 목록페이지로 돌아갈게
+      location.href = "/board"; //404번 발동 - routes - index.js 나 users.js 확인
+    }
+  })
 </script>
