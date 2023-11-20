@@ -1,0 +1,22 @@
+    import { app } from '/javascripts/firebase.js';
+  import {getFirestore,collection,addDoc,} 
+  from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+
+  import {query,where,getDocs,orderBy,doc,} 
+  from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+  
+  async function getList() {
+    //arrow function 호이스팅이 일어나지 않으니까
+    const q = query(collection(db, 'board'), orderBy('date', 'desc'));
+    const snapshot = await getDocs(q);
+    let rows = [];
+    snapshot.forEach((row) => {
+      //console.log(`${element} ${index} ${arr}`);
+      //console.log(arr); //배열이 2번 출력될것이다
+      console.log(row.id);
+      rows.push({ id: row.id, ...row.data() });
+      console.log(rows); //원본에 id키를 갖는 값이 들어갔나요?
+      let temp = Handlebars.compile($('#temp').html());
+      $('#boards').html(temp(rows));
+    }); //end forEach
+  }

@@ -43,7 +43,7 @@
   const storage = getStorage(app); //Storage 라이브러리 사용을 위한 객체 생성
   const uid = localStorage.getItem("uid");
 
-  $(frm).on("submit", async(evet) => {
+  $(frm).on("submit", async function(event) {
     event.preventDefault(); //새로고침 사이드이펙트 발동 막음
     if(window.confirm("회원정보 변경 하시겠습니까?")){
       let name = $(frm.name).val();
@@ -54,17 +54,15 @@
       if(frm.file.files[0]){
         const snapshot = await uploadBytes(
         ref(storage, `/photo/${Date.now()}.jpg`), frm.file.files[0]);
-        let title = $(frm.title).val(); //사용자가 입력한 제목 받아오기
-        let body = $(frm.body).val(); //사용자가 입력한 제목 받아오기
         //사진이 있을 때만 처리된다.
         const url = await getDownloadURL(snapshot.ref);
-        await setDoc(doc(db, `user/${uid}`), {
+        await setDoc(doc(db, `users/${uid}`), {
           email: email, name, address, phone, photo: url
         })
       }//end of inner if
       else { //사진정보는 수정하지 않는 경우 - 기존 사진정보의 url을 다시 넣어준다. - 안넣으면 null
         const photo = $("#fileName").attr('src');
-        await setDoc(doc(db, `user/${uid}`), {
+        await setDoc(doc(db, `users/${uid}`), {
           email, name, address, phone, photo
         })
       }//end of else - 사진정보 미포함일때 실행문
@@ -73,6 +71,6 @@
     }//end of outter if 회원정보 변경합니까
   })
   $(frm.file).on('change', function(e){
-    $("#fileName").attr("src", URL.createObjectURL(e.target.files[0]));
+    $("#fileName").attr('src', URL.createObjectURL(e.target.files[0]));
   });
 </script>

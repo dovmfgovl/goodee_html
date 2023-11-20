@@ -1,5 +1,5 @@
 // Async, Await
-// then함수를 쓰려면 Promise여야 한다. - then은 Promise 프로토타입이 제공하는 함숫이다.
+// then함수를 쓰려면 Promise여야 한다. - then은 Promise 프로토타입이 제공하는 함수이다.
 // 여기서 프로토타입에 대한 정의는 뭘까?
 // 어떤 객체에 대해서도 재사용이 가능한 객체인 것
 

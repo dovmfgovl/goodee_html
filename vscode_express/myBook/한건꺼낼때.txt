@@ -1,0 +1,11 @@
+  //파라미터로 넘긴 값을 받아올 수 있나? -let id = req.params.id;(index.js)
+  //자스에서는 값에 쿼테이션이 없으면 변수명으로 취급되니 주의할것
+  const id = '<%=id%>';
+  console.log(id);
+  //list.ejs에서 제목에 링크(/board/:id)를 걸었다. 클릭하면 routes/index.js에 등록된 이름을 따라서 호출될
+  //페이지이름(pageName: "board/read.ejs")을 찾아낸다. 그런다음  index.ejs에 있는
+  //include에 있는 pageName자리에 치환된다.
+  //한건을 가져올때는 getDoc()사용하고 n건을 가져올땐 getDoc()사용할것
+  //주의 getDoc앞에 받드시 await을 붙일것 - async는 없지만 무조건
+  const snapshot = await getDoc(doc(db, 'board', id));
+  const row = snapshot.data();
