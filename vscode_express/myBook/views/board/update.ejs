@@ -47,7 +47,7 @@
     $(frm.body).val(row.body);
   }
 
-  $(frm).on('submit', async(evet) => {
+  $(frm).on('submit', async(event) => {
     event.preventDefault(); //새로고침 사이드이펙트 발동 막음
     $('#modal-confirm .modal-body').html("수정된 정보를 저장하시겠습니까?");
     $('#modal-confirm').modal("show");
