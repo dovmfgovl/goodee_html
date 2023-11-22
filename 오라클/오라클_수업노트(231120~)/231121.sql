@@ -212,7 +212,40 @@ GROUP BY deptno,sal;
 -- -> 그러므로 그룹 바이 안 하면 됨
 SELECT deptno, sal
     FROM emp;
+    
+-------231122 내용 추가------------------------------------------------------------------------------------------
+--<문제제기>
+-- 1. t_letitbe를 두 번 읽어서 처리한다 
+-- 2. 왜 별칭을 A로 통일시켰나?
+SELECT seq_vc
+                , decode(mod(seq_vc, 2), 1, words_vc) A
+    FROM t_letitbe
+UNION ALL   
+SELECT seq_vc
+                , decode(mod(seq_vc, 2), 0, words_vc) A
+     FROM t_letitbe;
+     
+--에러: ORA-01790: 대응하는 식과 같은 데이터 유형이어야 합니다
+SELECT deptno FROM dept
+UNION ALL
+SELECT dname FROM dept;
 
+--해결: 타입이 같으면 가능 - 따라서 위 letitbe도 타입이 같으므로 union all  가능
+SELECT loc FROM dept
+UNION ALL
+SELECT dname FROM dept;
+
+SELECT count(comm), count(empno) FROM emp;
+
+SELECT decode(JOB, 'clerk', sal, NULL) FROM emp;
+
+SELECT sum(decode(JOB, 'clerk', sal, NULL)) FROM emp;
+
+SELECT decode(JOB, 'clerk', sal, NULL)
+              , decode(JOB, 'salesman', sal, NULL)
+              , decode(JOB, 'clerk', NULL, 'salesman', NULL, sal)
+    FROM emp;
+---------------------------------------------------------------------------------------231122------------
     
 --------------------------------------------------------------------------
 --t_giftpoint
