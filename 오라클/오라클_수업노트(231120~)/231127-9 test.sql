@@ -1,0 +1,1 @@
+SELECT m_id FROM MEMBER1 WHERE m_id=:p_id;

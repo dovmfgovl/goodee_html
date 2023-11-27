@@ -8,3 +8,4 @@ BEGIN
     END LOOP;
     msg := '1부터 10까지의 합은'||n_hap||' 입니다.';
 END;
+/
