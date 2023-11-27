@@ -221,12 +221,15 @@ SELECT dept_name AS "부서명"
     FROM tdept;
     
 SELECT A.dept_name AS "부서명"
-              , b.dept_name AS "상위부서명"
-    FROM tdept A, tdept b;
+      , a.dept_code
+     , b.dept_name AS "상위부서명"
+     , b.dept_code
+    FROM tdept A, tdept b
+ order by a.dept_name, b.dept_name;
 
 --둘의 관계형태가 1:n이니 정의를 잘해서 사용해야 한다
 SELECT A.dept_name AS "부서명"
-              , b.dept_name AS "상위부서명"
+      , b.dept_name AS "상위부서명"
     FROM tdept A, tdept b
  WHERE A.parent_dept = b.dept_code;
  

@@ -1,0 +1,6 @@
+FILE="C:\Users\SeulGi\Desktop\Developer\vscode_web\오라클\scottBackup\231124.DMP"
+LOG="C:\Users\SeulGi\Desktop\Developer\vscode_web\오라클\scottBackup\imp_231124.log"
+FROMUSER=scott
+TOUSER=SCOTT
+IGNORE=Y
+FEEDBACK=1000
