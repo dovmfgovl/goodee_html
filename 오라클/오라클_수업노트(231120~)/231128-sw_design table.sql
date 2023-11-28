@@ -1,0 +1,55 @@
+CREATE TABLE SCOTT.SW_DESIGN
+(
+  D_NO      NUMBER(4),
+  SUB_CD    NUMBER(4)                           NOT NULL,
+  QUESTION  VARCHAR2(500 BYTE)                  NOT NULL,
+  ANSWER1   VARCHAR2(1000 BYTE)                 NOT NULL,
+  ANSWER2   VARCHAR2(1000 BYTE)                 NOT NULL,
+  ANSWER3   VARCHAR2(1000 BYTE)                 NOT NULL,
+  ANSWER4   VARCHAR2(1000 BYTE)                 NOT NULL,
+  D_POINT   NUMBER(3)                           DEFAULT 0,
+  DAP       NUMBER(1)                           DEFAULT 0
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+CREATE UNIQUE INDEX SCOTT.DESIGN_NO_PK ON SCOTT.SW_DESIGN
+(D_NO)
+LOGGING
+TABLESPACE USERS
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+ALTER TABLE SCOTT.SW_DESIGN ADD (
+  CONSTRAINT DESIGN_NO_PK
+  PRIMARY KEY
+  (D_NO)
+  USING INDEX SCOTT.DESIGN_NO_PK
+  ENABLE VALIDATE);
